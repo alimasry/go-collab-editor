@@ -28,10 +28,13 @@ type Session struct {
 	stop     chan struct{}
 }
 
-func newSession(docID string, content string, engine ot.Engine, st store.DocumentStore) *Session {
+func newSession(docID, content string, version int, history []ot.Operation, engine ot.Engine, st store.DocumentStore) *Session {
+	doc := ot.NewDocument(content)
+	doc.Version = version
+	doc.History = history
 	return &Session{
 		docID:    docID,
-		doc:      ot.NewDocument(content),
+		doc:      doc,
 		engine:   engine,
 		store:    st,
 		clients:  make(map[*Client]bool),

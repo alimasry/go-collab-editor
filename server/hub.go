@@ -63,7 +63,13 @@ func (h *Hub) handleJoinDoc(req joinRequest) {
 			return
 		}
 
-		s = newSession(req.docID, info.Content, h.engine, h.store)
+		ops, err := h.store.GetOperations(ctx, req.docID, 0)
+		if err != nil {
+			log.Printf("hub: failed to load history for %q: %v", req.docID, err)
+			ops = nil
+		}
+
+		s = newSession(req.docID, info.Content, info.Version, ops, h.engine, h.store)
 		h.sessions[req.docID] = s
 		go s.Run()
 	}
