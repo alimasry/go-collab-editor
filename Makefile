@@ -42,7 +42,14 @@ gcp-setup:
 	@if gcloud firestore databases describe --database='(default)' >/dev/null 2>&1; then \
 		echo "Firestore database already exists"; \
 	else \
-		gcloud firestore databases create --location=nam5; \
+		echo "Creating Firestore database (may wait for cooldown after deletion)..."; \
+		for i in 1 2 3 4 5 6 7 8 9 10; do \
+			if gcloud firestore databases create --location=nam5 2>&1; then \
+				break; \
+			fi; \
+			echo "Firestore not ready, retrying in 30s... ($$i/10)"; \
+			sleep 30; \
+		done; \
 	fi
 
 # Deploy to Cloud Run with Firestore backend
