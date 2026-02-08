@@ -1,0 +1,71 @@
+site_name: go-collab-editor
+site_url: https://alimasry.github.io/go-collab-editor/
+site_description: Real-time collaborative text editor using Jupiter OT algorithm
+repo_url: https://github.com/alimasry/go-collab-editor
+repo_name: alimasry/go-collab-editor
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      primary: deep purple
+      accent: pink
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: deep purple
+      accent: pink
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.snippets
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Architecture:
+      - Overview: architecture/overview.md
+      - OT Algorithm: architecture/ot-algorithm.md
+      - Goroutine Model: architecture/goroutine-model.md
+      - Frontend Client: architecture/frontend-client.md
+  - Protocol:
+      - WebSocket Protocol: protocol/websocket.md
+      - Message Reference: protocol/messages.md
+  - API Reference:
+      - ot: api/ot.md
+      - server: api/server.md
+      - store: api/store.md
+  - Contributing: contributing.md

@@ -1,0 +1,42 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'ot/**/*.go'
+      - 'server/**/*.go'
+      - 'store/**/*.go'
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          go install github.com/princjef/gomarkdoc/cmd/gomarkdoc@latest
+
+      - name: Generate API docs
+        run: |
+          gomarkdoc --output docs/api/ot.md ./ot/
+          gomarkdoc --output docs/api/server.md ./server/
+          gomarkdoc --output docs/api/store.md ./store/
+
+      - name: Deploy to GitHub Pages
+        run: mkdocs gh-deploy --force
