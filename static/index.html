@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collaborative Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/theme/nord.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Collab Editor</div>
+        <div class="doc-info">
+            <span id="doc-id"></span>
+            <button id="copy-link" title="Copy shareable link">Copy Link</button>
+        </div>
+        <div class="status">
+            <span id="connection-status" class="status-dot disconnected"></span>
+            <span id="user-count">0 users</span>
+        </div>
+    </header>
+    <div id="users-bar"></div>
+    <div id="editor"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
