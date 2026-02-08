@@ -8,6 +8,15 @@ import "github.com/alimasry/go-collab-editor/store"
 
 ## Index
 
+- [type CachedStore](<#CachedStore>)
+  - [func NewCachedStore\(backing DocumentStore, flushInterval time.Duration\) \*CachedStore](<#NewCachedStore>)
+  - [func \(cs \*CachedStore\) AppendOperation\(ctx context.Context, id string, op ot.Operation, version int\) error](<#CachedStore.AppendOperation>)
+  - [func \(cs \*CachedStore\) Close\(\)](<#CachedStore.Close>)
+  - [func \(cs \*CachedStore\) Create\(ctx context.Context, id, content string\) error](<#CachedStore.Create>)
+  - [func \(cs \*CachedStore\) Get\(ctx context.Context, id string\) \(\*DocumentInfo, error\)](<#CachedStore.Get>)
+  - [func \(cs \*CachedStore\) GetOperations\(ctx context.Context, id string, fromVersion int\) \(\[\]ot.Operation, error\)](<#CachedStore.GetOperations>)
+  - [func \(cs \*CachedStore\) List\(ctx context.Context\) \(\[\]DocumentInfo, error\)](<#CachedStore.List>)
+  - [func \(cs \*CachedStore\) UpdateContent\(ctx context.Context, id, content string, version int\) error](<#CachedStore.UpdateContent>)
 - [type DocumentInfo](<#DocumentInfo>)
 - [type DocumentStore](<#DocumentStore>)
 - [type FirestoreStore](<#FirestoreStore>)
@@ -26,6 +35,89 @@ import "github.com/alimasry/go-collab-editor/store"
   - [func \(s \*MemoryStore\) GetOperations\(\_ context.Context, id string, fromVersion int\) \(\[\]ot.Operation, error\)](<#MemoryStore.GetOperations>)
   - [func \(s \*MemoryStore\) List\(\_ context.Context\) \(\[\]DocumentInfo, error\)](<#MemoryStore.List>)
   - [func \(s \*MemoryStore\) UpdateContent\(\_ context.Context, id, content string, version int\) error](<#MemoryStore.UpdateContent>)
+
+
+<a name="CachedStore"></a>
+## type CachedStore
+
+CachedStore wraps a backing DocumentStore with an in\-memory cache. All reads and writes are served from the cache. Dirty documents are flushed to the backing store periodically in the background.
+
+```go
+type CachedStore struct {
+    // contains filtered or unexported fields
+}
+```
+
+<a name="NewCachedStore"></a>
+### func NewCachedStore
+
+```go
+func NewCachedStore(backing DocumentStore, flushInterval time.Duration) *CachedStore
+```
+
+NewCachedStore creates a CachedStore that caches in memory and flushes dirty documents to the backing store every flushInterval.
+
+<a name="CachedStore.AppendOperation"></a>
+### func \(\*CachedStore\) AppendOperation
+
+```go
+func (cs *CachedStore) AppendOperation(ctx context.Context, id string, op ot.Operation, version int) error
+```
+
+
+
+<a name="CachedStore.Close"></a>
+### func \(\*CachedStore\) Close
+
+```go
+func (cs *CachedStore) Close()
+```
+
+Close signals the flush loop to perform a final flush and waits for it to complete.
+
+<a name="CachedStore.Create"></a>
+### func \(\*CachedStore\) Create
+
+```go
+func (cs *CachedStore) Create(ctx context.Context, id, content string) error
+```
+
+
+
+<a name="CachedStore.Get"></a>
+### func \(\*CachedStore\) Get
+
+```go
+func (cs *CachedStore) Get(ctx context.Context, id string) (*DocumentInfo, error)
+```
+
+
+
+<a name="CachedStore.GetOperations"></a>
+### func \(\*CachedStore\) GetOperations
+
+```go
+func (cs *CachedStore) GetOperations(ctx context.Context, id string, fromVersion int) ([]ot.Operation, error)
+```
+
+
+
+<a name="CachedStore.List"></a>
+### func \(\*CachedStore\) List
+
+```go
+func (cs *CachedStore) List(ctx context.Context) ([]DocumentInfo, error)
+```
+
+
+
+<a name="CachedStore.UpdateContent"></a>
+### func \(\*CachedStore\) UpdateContent
+
+```go
+func (cs *CachedStore) UpdateContent(ctx context.Context, id, content string, version int) error
+```
+
 
 
 <a name="DocumentInfo"></a>

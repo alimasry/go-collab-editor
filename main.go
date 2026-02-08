@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"cloud.google.com/go/firestore"
 
@@ -42,8 +43,11 @@ func main() {
 			log.Fatalf("Failed to create Firestore client: %v", err)
 		}
 		defer client.Close()
-		docStore = store.NewFirestoreStore(client)
-		log.Printf("Using Firestore store (project: %s)", projectID)
+		fsStore := store.NewFirestoreStore(client)
+		cachedStore := store.NewCachedStore(fsStore, 5*time.Second)
+		defer cachedStore.Close()
+		docStore = cachedStore
+		log.Printf("Using Firestore store with write-behind cache (project: %s)", projectID)
 	default:
 		log.Fatalf("Unknown store type: %s", *storeType)
 	}

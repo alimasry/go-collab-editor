@@ -49,7 +49,7 @@ go test -v ./ot -run TestTransform_InsertDelete
 |-----------|---------|
 | `ot/` | Pure OT algorithm library (zero external dependencies) |
 | `server/` | HTTP handler, WebSocket hub, sessions, and client management |
-| `store/` | Document persistence (`MemoryStore` and `FirestoreStore` implementations) |
+| `store/` | Document persistence (`MemoryStore`, `FirestoreStore`, and `CachedStore` implementations) |
 | `static/` | Frontend: HTML, CSS, and JavaScript (CodeMirror 5) |
 | `main.go` | Server entry point — wires everything together |
 
@@ -80,6 +80,6 @@ The server reads the `PORT` environment variable automatically (set by Cloud Run
 | Flag | Description |
 |------|-------------|
 | `-store memory` | In-memory (default) — data lost on restart |
-| `-store firestore` | Google Cloud Firestore — persistent across restarts |
+| `-store firestore` | Google Cloud Firestore with write-behind cache — persistent across restarts |
 
 When using Firestore, set the project ID via `-project` flag or `GCP_PROJECT` env var.

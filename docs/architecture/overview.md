@@ -12,7 +12,7 @@ graph TD
 
 - **`ot/`** — Pure algorithm library with zero dependencies on other packages. Contains the operation model, transform function, and engine interface.
 - **`server/`** — HTTP handler, WebSocket hub, per-document sessions, and client connection management. Depends on `ot/` and `store/`.
-- **`store/`** — Document persistence abstraction. `MemoryStore` (in-memory) and `FirestoreStore` (Google Cloud Firestore) are the available implementations.
+- **`store/`** — Document persistence abstraction. `MemoryStore` (in-memory), `FirestoreStore` (Google Cloud Firestore), and `CachedStore` (write-behind cache wrapping any `DocumentStore`) are the available implementations.
 - **`static/`** — Vanilla JS frontend with CodeMirror 5. Implements the same OT transform algorithm as the Go backend.
 
 ## Data flow
@@ -50,3 +50,5 @@ sequenceDiagram
 **Retain/insert/delete model**: Operations are sequences of components that walk the entire document left-to-right, rather than position-based point mutations. This makes transform and compose operations well-defined and composable.
 
 **Interface-driven extensibility**: `ot.Engine` and `store.DocumentStore` are interfaces. New OT algorithms (Wave, CRDT adapters) or storage backends (Firestore, PostgreSQL) can be swapped in without changing server code.
+
+**Write-behind caching**: When using Firestore, a `CachedStore` wraps the `FirestoreStore`, serving all reads and writes from an in-memory cache. Dirty documents are flushed to Firestore periodically (default 5s) in a background goroutine, batching per-keystroke writes to reduce cost and latency. Ops are flushed before content so crash-recovery can replay ops even if the stored content is slightly stale.
