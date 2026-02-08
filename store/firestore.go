@@ -129,7 +129,10 @@ func (s *FirestoreStore) AppendOperation(ctx context.Context, id string, op ot.O
 		components[i] = m
 	}
 
-	_, err := s.opsCollection(id).Doc(zeroPad(version)).Set(ctx, map[string]interface{}{
+	// Store with 0-based index: version 1 → index 0, matching MemoryStore's
+	// history slice semantics where GetOperations(fromVersion) returns history[fromVersion:].
+	index := version - 1
+	_, err := s.opsCollection(id).Doc(zeroPad(index)).Set(ctx, map[string]interface{}{
 		"ops":     components,
 		"version": version,
 	})
