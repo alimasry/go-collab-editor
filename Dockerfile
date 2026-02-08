@@ -9,6 +9,7 @@ RUN CGO_ENABLED=0 go build -o /app/server .
 FROM alpine:3.21
 RUN apk add --no-cache ca-certificates
 COPY --from=builder /app/server /server
+RUN chmod +x /server
 COPY --from=builder /app/static /static
 EXPOSE 8080
 ENTRYPOINT ["/server"]
