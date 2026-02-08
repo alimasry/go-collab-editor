@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/alielmasry/go-collab-editor/ot"
+	"github.com/alimasry/go-collab-editor/ot"
 )
 
 type docRecord struct {

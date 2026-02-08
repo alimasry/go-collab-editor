@@ -4,8 +4,8 @@ import (
 	"context"
 	"log"
 
-	"github.com/alielmasry/go-collab-editor/ot"
-	"github.com/alielmasry/go-collab-editor/store"
+	"github.com/alimasry/go-collab-editor/ot"
+	"github.com/alimasry/go-collab-editor/store"
 )
 
 type opMessage struct {

@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/alielmasry/go-collab-editor/ot"
-	"github.com/alielmasry/go-collab-editor/server"
-	"github.com/alielmasry/go-collab-editor/store"
+	"github.com/alimasry/go-collab-editor/ot"
+	"github.com/alimasry/go-collab-editor/server"
+	"github.com/alimasry/go-collab-editor/store"
 )
 
 func main() {

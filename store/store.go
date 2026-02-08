@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/alielmasry/go-collab-editor/ot"
+	"github.com/alimasry/go-collab-editor/ot"
 )
 
 // DocumentInfo holds document metadata and content.

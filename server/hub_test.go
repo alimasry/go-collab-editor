@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/alielmasry/go-collab-editor/ot"
-	"github.com/alielmasry/go-collab-editor/store"
+	"github.com/alimasry/go-collab-editor/ot"
+	"github.com/alimasry/go-collab-editor/store"
 )
 
 func TestHub_CreateSessionOnJoin(t *testing.T) {

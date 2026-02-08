@@ -1,4 +1,4 @@
-module github.com/alielmasry/go-collab-editor
+module github.com/alimasry/go-collab-editor
 
 go 1.25.5
 

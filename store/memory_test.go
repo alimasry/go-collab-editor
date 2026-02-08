@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/alielmasry/go-collab-editor/ot"
+	"github.com/alimasry/go-collab-editor/ot"
 )
 
 func TestMemoryStore_CreateAndGet(t *testing.T) {

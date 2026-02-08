@@ -10,8 +10,8 @@ import (
 
 	"github.com/gorilla/websocket"
 
-	"github.com/alielmasry/go-collab-editor/ot"
-	"github.com/alielmasry/go-collab-editor/store"
+	"github.com/alimasry/go-collab-editor/ot"
+	"github.com/alimasry/go-collab-editor/store"
 )
 
 func setupTestServer(t *testing.T) (*httptest.Server, *Hub) {

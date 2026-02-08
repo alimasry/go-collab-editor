@@ -3,7 +3,7 @@ package server
 import (
 	"encoding/json"
 
-	"github.com/alielmasry/go-collab-editor/ot"
+	"github.com/alimasry/go-collab-editor/ot"
 )
 
 // Message types exchanged over WebSocket.
