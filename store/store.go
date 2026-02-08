@@ -17,7 +17,7 @@ type DocumentInfo struct {
 }
 
 // DocumentStore abstracts document persistence.
-// Implementations: MemoryStore (phase 1), FirestoreStore (future).
+// Implementations: MemoryStore (in-memory), FirestoreStore (Google Cloud Firestore).
 type DocumentStore interface {
 	Create(ctx context.Context, id, content string) error
 	Get(ctx context.Context, id string) (*DocumentInfo, error)
