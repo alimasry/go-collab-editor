@@ -1,5 +1,5 @@
 .PHONY: docs-serve docs-build docs-api docs-deploy docs-setup test run \
-       gcp-setup gcp-deploy gcp-destroy
+       gcp-setup gcp-deploy gcp-stop gcp-destroy
 
 # Install documentation tooling
 docs-setup:
@@ -60,6 +60,14 @@ gcp-deploy:
 		--allow-unauthenticated \
 		--set-env-vars GCP_PROJECT=$(GCP_PROJECT) \
 		--args="-store=firestore"
+
+# Delete Cloud Run service only (keeps Firestore data intact)
+gcp-stop:
+	@if gcloud run services describe go-collab-editor --region $(GCP_REGION) >/dev/null 2>&1; then \
+		gcloud run services delete go-collab-editor --region $(GCP_REGION) --quiet; \
+	else \
+		echo "Cloud Run service does not exist, skipping"; \
+	fi
 
 # Tear down Cloud Run service and Firestore database (idempotent)
 gcp-destroy:
