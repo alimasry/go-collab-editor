@@ -42,7 +42,7 @@ func TestSession_JoinAndReceiveDoc(t *testing.T) {
 	st := store.NewMemoryStore()
 	st.Create(ctx(), "doc1", "hello")
 	engine := &ot.JupiterEngine{}
-	s := newSession("doc1", "hello", engine, st)
+	s := newSession("doc1", "hello", 0, nil, engine, st)
 	go s.Run()
 	defer close(s.stop)
 
@@ -65,7 +65,7 @@ func TestSession_OpTransformAndBroadcast(t *testing.T) {
 	st := store.NewMemoryStore()
 	st.Create(ctx(), "doc1", "abc")
 	engine := &ot.JupiterEngine{}
-	s := newSession("doc1", "abc", engine, st)
+	s := newSession("doc1", "abc", 0, nil, engine, st)
 	go s.Run()
 	defer close(s.stop)
 
@@ -112,7 +112,7 @@ func TestSession_ConcurrentOps(t *testing.T) {
 	st := store.NewMemoryStore()
 	st.Create(ctx(), "doc1", "abc")
 	engine := &ot.JupiterEngine{}
-	s := newSession("doc1", "abc", engine, st)
+	s := newSession("doc1", "abc", 0, nil, engine, st)
 	go s.Run()
 	defer close(s.stop)
 
@@ -151,7 +151,7 @@ func TestSession_LeaveNotification(t *testing.T) {
 	st := store.NewMemoryStore()
 	st.Create(ctx(), "doc1", "")
 	engine := &ot.JupiterEngine{}
-	s := newSession("doc1", "", engine, st)
+	s := newSession("doc1", "", 0, nil, engine, st)
 	go s.Run()
 	defer close(s.stop)
 

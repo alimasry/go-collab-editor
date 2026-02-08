@@ -25,6 +25,20 @@ go test -v ./ot
 go test -v ./ot -run TestTransform_InsertDelete
 ```
 
+### Firestore emulator tests
+
+Firestore tests skip by default. To run them locally with the emulator:
+
+```bash
+# Start the Firestore emulator (requires gcloud CLI)
+gcloud emulators firestore start --host-port=localhost:8081
+
+# In another terminal, run tests against the emulator
+export FIRESTORE_EMULATOR_HOST=localhost:8081
+export FIRESTORE_PROJECT=test
+go test -v ./store
+```
+
 ## Code organization
 
 | Package | Responsibility |

@@ -68,4 +68,5 @@ nav:
       - ot: api/ot.md
       - server: api/server.md
       - store: api/store.md
+  - Deployment: deployment.md
   - Contributing: contributing.md

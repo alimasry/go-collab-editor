@@ -12,7 +12,7 @@ graph TD
 
 - **`ot/`** — Pure algorithm library with zero dependencies on other packages. Contains the operation model, transform function, and engine interface.
 - **`server/`** — HTTP handler, WebSocket hub, per-document sessions, and client connection management. Depends on `ot/` and `store/`.
-- **`store/`** — Document persistence abstraction. `MemoryStore` is the current implementation; the interface is designed for a future `FirestoreStore` drop-in.
+- **`store/`** — Document persistence abstraction. `MemoryStore` (in-memory) and `FirestoreStore` (Google Cloud Firestore) are the available implementations.
 - **`static/`** — Vanilla JS frontend with CodeMirror 5. Implements the same OT transform algorithm as the Go backend.
 
 ## Data flow
