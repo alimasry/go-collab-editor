@@ -49,6 +49,37 @@ go test -v ./ot -run TestTransform_InsertDelete
 |-----------|---------|
 | `ot/` | Pure OT algorithm library (zero external dependencies) |
 | `server/` | HTTP handler, WebSocket hub, sessions, and client management |
-| `store/` | Document persistence abstraction (`MemoryStore` implementation) |
+| `store/` | Document persistence (`MemoryStore` and `FirestoreStore` implementations) |
 | `static/` | Frontend: HTML, CSS, and JavaScript (CodeMirror 5) |
 | `main.go` | Server entry point — wires everything together |
+
+## Deploy to Cloud Run
+
+Build and deploy with Firestore as the storage backend:
+
+```bash
+# Build the container image
+docker build -t go-collab-editor .
+
+# Run locally with Firestore
+docker run -p 8080:8080 \
+  -e GCP_PROJECT=your-project-id \
+  go-collab-editor -store firestore
+
+# Deploy to Cloud Run
+gcloud run deploy go-collab-editor \
+  --source . \
+  --set-env-vars GCP_PROJECT=your-project-id \
+  --args="-store=firestore"
+```
+
+The server reads the `PORT` environment variable automatically (set by Cloud Run).
+
+### Storage backends
+
+| Flag | Description |
+|------|-------------|
+| `-store memory` | In-memory (default) — data lost on restart |
+| `-store firestore` | Google Cloud Firestore — persistent across restarts |
+
+When using Firestore, set the project ID via `-project` flag or `GCP_PROJECT` env var.

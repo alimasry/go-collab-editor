@@ -10,6 +10,14 @@ import "github.com/alimasry/go-collab-editor/store"
 
 - [type DocumentInfo](<#DocumentInfo>)
 - [type DocumentStore](<#DocumentStore>)
+- [type FirestoreStore](<#FirestoreStore>)
+  - [func NewFirestoreStore\(client \*firestore.Client\) \*FirestoreStore](<#NewFirestoreStore>)
+  - [func \(s \*FirestoreStore\) AppendOperation\(ctx context.Context, id string, op ot.Operation, version int\) error](<#FirestoreStore.AppendOperation>)
+  - [func \(s \*FirestoreStore\) Create\(ctx context.Context, id, content string\) error](<#FirestoreStore.Create>)
+  - [func \(s \*FirestoreStore\) Get\(ctx context.Context, id string\) \(\*DocumentInfo, error\)](<#FirestoreStore.Get>)
+  - [func \(s \*FirestoreStore\) GetOperations\(ctx context.Context, id string, fromVersion int\) \(\[\]ot.Operation, error\)](<#FirestoreStore.GetOperations>)
+  - [func \(s \*FirestoreStore\) List\(ctx context.Context\) \(\[\]DocumentInfo, error\)](<#FirestoreStore.List>)
+  - [func \(s \*FirestoreStore\) UpdateContent\(ctx context.Context, id, content string, version int\) error](<#FirestoreStore.UpdateContent>)
 - [type MemoryStore](<#MemoryStore>)
   - [func NewMemoryStore\(\) \*MemoryStore](<#NewMemoryStore>)
   - [func \(s \*MemoryStore\) AppendOperation\(\_ context.Context, id string, op ot.Operation, version int\) error](<#MemoryStore.AppendOperation>)
@@ -38,7 +46,7 @@ type DocumentInfo struct {
 <a name="DocumentStore"></a>
 ## type DocumentStore
 
-DocumentStore abstracts document persistence. Implementations: MemoryStore \(phase 1\), FirestoreStore \(future\).
+DocumentStore abstracts document persistence. Implementations: MemoryStore \(in\-memory\), FirestoreStore \(Google Cloud Firestore\).
 
 ```go
 type DocumentStore interface {
@@ -50,6 +58,80 @@ type DocumentStore interface {
     GetOperations(ctx context.Context, id string, fromVersion int) ([]ot.Operation, error)
 }
 ```
+
+<a name="FirestoreStore"></a>
+## type FirestoreStore
+
+FirestoreStore is a Firestore\-backed implementation of DocumentStore.
+
+```go
+type FirestoreStore struct {
+    // contains filtered or unexported fields
+}
+```
+
+<a name="NewFirestoreStore"></a>
+### func NewFirestoreStore
+
+```go
+func NewFirestoreStore(client *firestore.Client) *FirestoreStore
+```
+
+NewFirestoreStore creates a new FirestoreStore using the given Firestore client.
+
+<a name="FirestoreStore.AppendOperation"></a>
+### func \(\*FirestoreStore\) AppendOperation
+
+```go
+func (s *FirestoreStore) AppendOperation(ctx context.Context, id string, op ot.Operation, version int) error
+```
+
+
+
+<a name="FirestoreStore.Create"></a>
+### func \(\*FirestoreStore\) Create
+
+```go
+func (s *FirestoreStore) Create(ctx context.Context, id, content string) error
+```
+
+
+
+<a name="FirestoreStore.Get"></a>
+### func \(\*FirestoreStore\) Get
+
+```go
+func (s *FirestoreStore) Get(ctx context.Context, id string) (*DocumentInfo, error)
+```
+
+
+
+<a name="FirestoreStore.GetOperations"></a>
+### func \(\*FirestoreStore\) GetOperations
+
+```go
+func (s *FirestoreStore) GetOperations(ctx context.Context, id string, fromVersion int) ([]ot.Operation, error)
+```
+
+
+
+<a name="FirestoreStore.List"></a>
+### func \(\*FirestoreStore\) List
+
+```go
+func (s *FirestoreStore) List(ctx context.Context) ([]DocumentInfo, error)
+```
+
+
+
+<a name="FirestoreStore.UpdateContent"></a>
+### func \(\*FirestoreStore\) UpdateContent
+
+```go
+func (s *FirestoreStore) UpdateContent(ctx context.Context, id, content string, version int) error
+```
+
+
 
 <a name="MemoryStore"></a>
 ## type MemoryStore
